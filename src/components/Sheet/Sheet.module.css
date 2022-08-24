@@ -1,3 +1,8 @@
+.sheetWrapper {
+  position: relative;
+  width: fit-content;
+}
+
 .sheet {
   border-spacing: 0;
 }

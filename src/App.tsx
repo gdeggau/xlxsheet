@@ -1,13 +1,11 @@
-import React from "react";
-import logo from "./logo.svg";
-import "./App.css";
+import { RecoilRoot } from "recoil";
 import { Cell } from "./components/Cell/Cell";
 
 function App() {
   return (
-    <div className="App">
+    <RecoilRoot>
       <Cell>Hello</Cell>
-    </div>
+    </RecoilRoot>
   );
 }
 

@@ -1,10 +1,13 @@
-import { useEffect, useRef, useState } from "react";
+import { ChangeEvent, useEffect, useRef, useState } from "react";
+import { useRecoilState } from "recoil";
+import { CellValueState } from "../../store/CellValueState";
 
 type CellProps = {
   children: React.ReactNode | string;
 };
 
 export const Cell = ({ children }: CellProps) => {
+  const [cellValue, setCellValue] = useRecoilState(CellValueState);
   const [isEditMode, setIdEditMode] = useState(false);
   const inputRef = useRef(null);
 
@@ -14,6 +17,10 @@ export const Cell = ({ children }: CellProps) => {
 
   const changeInputToLabel = () => {
     setIdEditMode(false);
+  };
+
+  const updateCellValueState = (e: ChangeEvent<HTMLInputElement>) => {
+    setCellValue(e.target.value);
   };
 
   const onClickOutsideInputHandler = (e: MouseEvent) => {
@@ -30,10 +37,15 @@ export const Cell = ({ children }: CellProps) => {
   }, []);
 
   return isEditMode ? (
-    <input ref={inputRef} data-cell-id="2" />
+    <input
+      ref={inputRef}
+      data-cell-id="2"
+      value={cellValue}
+      onChange={updateCellValueState}
+    />
   ) : (
     <div data-cell-id="2" onClick={changeLabelToInput}>
-      {children}
+      {cellValue}
     </div>
   );
 };

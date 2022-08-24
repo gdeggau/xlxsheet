@@ -2,6 +2,9 @@ import { ChangeEvent, useEffect, useRef, useState } from "react";
 import { useRecoilState } from "recoil";
 import { CellValueState } from "../../store/CellValueState";
 
+export const CELL_WIDTH = 100;
+export const CELL_HEIGHT = 25;
+
 type CellProps = {
   children?: React.ReactNode;
 };

@@ -1,12 +1,28 @@
-import { Cell } from "../Cell/Cell";
+import { useRecoilValue } from "recoil";
+import { SheetSizeState } from "../../store/SheetSizeState";
+import { Cell, CELL_HEIGHT, CELL_WIDTH } from "../Cell/Cell";
 import { Column } from "../Column/Column";
 import { Row } from "../Row/Row";
 
 export const Sheet = () => {
+  const sheetSize = useRecoilValue(SheetSizeState);
+
+  const numberOfColumns = sheetSize.width / CELL_WIDTH;
+  const numberOfRows = sheetSize.height / CELL_HEIGHT;
+
   return (
     <table>
       <tbody>
-        <Row>
+        {[...Array(numberOfRows)].map((row, rowIndex) => (
+          <Row key={rowIndex}>
+            {[...Array(numberOfColumns)].map((column, columnIndex) => (
+              <Column key={columnIndex}>
+                <Cell />
+              </Column>
+            ))}
+          </Row>
+        ))}
+        {/* <Row>
           <Column>
             <Cell />
           </Column>
@@ -16,7 +32,7 @@ export const Sheet = () => {
           <Column>
             <Cell />
           </Column>
-        </Row>
+        </Row> */}
       </tbody>
     </table>
   );

@@ -3,7 +3,7 @@ import { useRecoilState } from "recoil";
 import { CellValueState } from "../../store/CellValueState";
 
 type CellProps = {
-  children: React.ReactNode | string;
+  children?: React.ReactNode;
 };
 
 export const Cell = ({ children }: CellProps) => {

@@ -5,9 +5,7 @@ import { SheetsContainer } from "./containers/SheetsContainer";
 function App() {
   return (
     <RecoilRoot>
-      <SheetsContainer>
-        <Cell>Hello</Cell>
-      </SheetsContainer>
+      <SheetsContainer></SheetsContainer>
     </RecoilRoot>
   );
 }

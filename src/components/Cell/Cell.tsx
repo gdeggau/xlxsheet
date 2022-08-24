@@ -6,11 +6,12 @@ export const CELL_WIDTH = 100;
 export const CELL_HEIGHT = 25;
 
 type CellProps = {
+  cellId: string;
   children?: React.ReactNode;
 };
 
-export const Cell = ({ children }: CellProps) => {
-  const [cellValue, setCellValue] = useRecoilState(CellValueState);
+export const Cell = ({ children, cellId }: CellProps) => {
+  const [cellValue, setCellValue] = useRecoilState(CellValueState(cellId));
   const [isEditMode, setIdEditMode] = useState(false);
   const inputRef = useRef(null);
 
@@ -27,7 +28,7 @@ export const Cell = ({ children }: CellProps) => {
   };
 
   const onClickOutsideInputHandler = (e: MouseEvent) => {
-    if ((e.target as HTMLElement)?.dataset?.cellId !== "2") {
+    if ((e.target as HTMLElement)?.dataset?.cellId !== cellId) {
       changeInputToLabel();
     }
   };
@@ -42,12 +43,12 @@ export const Cell = ({ children }: CellProps) => {
   return isEditMode ? (
     <input
       ref={inputRef}
-      data-cell-id="2"
+      data-cell-id={cellId}
       value={cellValue}
       onChange={updateCellValueState}
     />
   ) : (
-    <div data-cell-id="2" onClick={changeLabelToInput}>
+    <div data-cell-id={cellId} onClick={changeLabelToInput}>
       {cellValue}
     </div>
   );

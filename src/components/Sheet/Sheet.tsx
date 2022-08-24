@@ -17,22 +17,11 @@ export const Sheet = () => {
           <Row key={rowIndex}>
             {[...Array(numberOfColumns)].map((column, columnIndex) => (
               <Column key={columnIndex}>
-                <Cell />
+                <Cell cellId={`${rowIndex}-${columnIndex}`} />
               </Column>
             ))}
           </Row>
         ))}
-        {/* <Row>
-          <Column>
-            <Cell />
-          </Column>
-          <Column>
-            <Cell />
-          </Column>
-          <Column>
-            <Cell />
-          </Column>
-        </Row> */}
       </tbody>
     </table>
   );

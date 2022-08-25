@@ -1,15 +1,21 @@
-import { RecoilState } from "recoil";
+import { RecoilState, RecoilValueReadOnly } from "recoil";
 
-type MemoizedContent = {
-  [key: string]: RecoilState<string>;
+type MemoizedContent<
+  R extends RecoilState<T> | RecoilValueReadOnly<T>,
+  T = unknown
+> = {
+  [key: string]: R;
 };
 
-const memoizedContent: MemoizedContent = {};
+const memoizedContent: MemoizedContent<any> = {};
 
-export const memoize = (
+export const memoize = <
+  R extends RecoilState<T> | RecoilValueReadOnly<T>,
+  T = unknown
+>(
   cellId: string,
-  atomFactory: () => RecoilState<string>
-) => {
+  atomFactory: () => R
+): R => {
   if (memoizedContent[cellId]) {
     return memoizedContent[cellId];
   }

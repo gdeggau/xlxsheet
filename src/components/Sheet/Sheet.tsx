@@ -1,5 +1,7 @@
 import { useRecoilValue } from "recoil";
 import { SheetSizeState } from "../../store/SheetSizeState";
+import { numberToChar } from "../../utils/numberToChar";
+import { AxisCell } from "../AxisCell/AxisCell";
 import { Cell, CELL_HEIGHT, CELL_WIDTH } from "../Cell/Cell";
 import { Column } from "../Column/Column";
 import { Resizer } from "../Resizer/Resizer";
@@ -16,9 +18,21 @@ export const Sheet = () => {
     <div className={styles.sheetWrapper}>
       <table className={styles.sheet}>
         <tbody>
-          {[...Array(numberOfRows)].map((row, rowIndex) => (
+          <Row>
+            {[...Array(numberOfColumns + 1)].map((_, columnIndex) =>
+              columnIndex !== 0 ? (
+                <AxisCell key={columnIndex}>
+                  {numberToChar(columnIndex - 1)}
+                </AxisCell>
+              ) : (
+                <AxisCell />
+              )
+            )}
+          </Row>
+          {[...Array(numberOfRows)].map((_, rowIndex) => (
             <Row key={rowIndex}>
-              {[...Array(numberOfColumns)].map((column, columnIndex) => (
+              <AxisCell>{rowIndex + 1}</AxisCell>
+              {[...Array(numberOfColumns)].map((_, columnIndex) => (
                 <Column key={columnIndex}>
                   <Cell cellId={`${rowIndex}-${columnIndex}`} />
                 </Column>

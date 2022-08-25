@@ -1,5 +1,4 @@
-const TOTAL_LETTERS_ALPHABET = 26;
-const ASCII_CODE_LOWERCASE_A = 97;
+import { ASCII_CODE_LOWERCASE_A, TOTAL_LETTERS_ALPHABET } from "../consts";
 
 export const numberToChar = (num: number): string => {
   const division = Math.floor(num / TOTAL_LETTERS_ALPHABET);

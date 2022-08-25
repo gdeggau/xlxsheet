@@ -1,4 +1,4 @@
-import { ChangeEvent, useEffect, useRef, useState } from "react";
+import { ChangeEvent, KeyboardEvent, useEffect, useRef, useState } from "react";
 import { useRecoilState, useRecoilValue } from "recoil";
 import { CellValueState } from "../../store/CellValueState";
 import { EvaluatedCellValueState } from "../../store/EvaluatedCellValueState";
@@ -26,10 +26,13 @@ export const Cell = ({ cellId }: CellProps) => {
     EvaluatedCellValueState(cellId)
   );
   const [isEditMode, setIdEditMode] = useState(false);
-  const inputRef = useRef(null);
+  const inputRef = useRef<HTMLInputElement>(null);
 
   const changeLabelToInput = () => {
     setIdEditMode(true);
+    setTimeout(() => {
+      inputRef.current?.focus();
+    });
   };
 
   const changeInputToLabel = () => {
@@ -43,6 +46,12 @@ export const Cell = ({ cellId }: CellProps) => {
   const onClickOutsideInputHandler = (e: MouseEvent) => {
     if ((e.target as HTMLElement)?.dataset?.cellId !== cellId) {
       changeInputToLabel();
+    }
+  };
+
+  const onDefocusInputHandler = (e: KeyboardEvent<HTMLInputElement>) => {
+    if (e.key === "Enter") {
+      setIdEditMode(false);
     }
   };
 
@@ -60,6 +69,7 @@ export const Cell = ({ cellId }: CellProps) => {
       data-cell-id={cellId}
       value={cellValue}
       onChange={updateCellValueState}
+      onKeyDown={onDefocusInputHandler}
     />
   ) : (
     <div

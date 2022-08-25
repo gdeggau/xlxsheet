@@ -2,7 +2,7 @@ import { useRecoilValue } from "recoil";
 import { SheetSizeState } from "../../store/SheetSizeState";
 import { numberToChar } from "../../utils/numberToChar";
 import { AxisCell } from "../AxisCell/AxisCell";
-import { Cell, CELL_HEIGHT, CELL_WIDTH } from "../Cell/Cell";
+import { buildCellId, Cell, CELL_HEIGHT, CELL_WIDTH } from "../Cell/Cell";
 import { Column } from "../Column/Column";
 import { Resizer } from "../Resizer/Resizer";
 import { Row } from "../Row/Row";
@@ -34,7 +34,7 @@ export const Sheet = () => {
               <AxisCell>{rowIndex + 1}</AxisCell>
               {[...Array(numberOfColumns)].map((_, columnIndex) => (
                 <Column key={columnIndex}>
-                  <Cell cellId={`${rowIndex}-${columnIndex}`} />
+                  <Cell cellId={buildCellId({ columnIndex, rowIndex })} />
                 </Column>
               ))}
             </Row>

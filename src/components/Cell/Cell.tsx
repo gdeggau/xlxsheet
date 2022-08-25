@@ -7,12 +7,20 @@ import styles from "./Cell.module.css";
 export const CELL_WIDTH = 100;
 export const CELL_HEIGHT = 25;
 
-type CellProps = {
-  cellId: string;
-  children?: React.ReactNode;
+type BuildCellId = {
+  rowIndex: number;
+  columnIndex: number;
 };
 
-export const Cell = ({ children, cellId }: CellProps) => {
+export const buildCellId = ({ columnIndex, rowIndex }: BuildCellId) => {
+  return `${rowIndex},${columnIndex}`;
+};
+
+type CellProps = {
+  cellId: string;
+};
+
+export const Cell = ({ cellId }: CellProps) => {
   const [cellValue, setCellValue] = useRecoilState(CellValueState(cellId));
   const evaluatedCellValueState = useRecoilValue(
     EvaluatedCellValueState(cellId)
